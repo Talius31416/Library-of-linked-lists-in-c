@@ -19,28 +19,30 @@ typedef Nodo *tpuntero;
 
 int tamanio(tpuntero cabeza);
 
+
+//se crea la cabeza con la lista que retorna el tpuntero que es igual a NULL
 tpuntero CrearLista(){
     return NULL;
 }
 
 void añadirElemento(tpuntero *cabeza, char texto[]){
-    Nodo *nuevo = (Nodo*)malloc(sizeof(Nodo));
-    strcpy(nuevo->Texto, texto);
-    nuevo->siguente = NULL;
+    Nodo *nuevo = (Nodo*)malloc(sizeof(Nodo)); //nodo que va a contener los datos de la lista ligada
+    strcpy(nuevo->Texto, texto); //se copia el string al arreglo del nodo
+    nuevo->siguente = NULL; //se asigna el siguiente valor NULL ya que no apunta a nada
     if(*cabeza == NULL){
-        *cabeza = nuevo;
+        *cabeza = nuevo;//se asigna el valor a la cabeza si no hay nada en la lista
     }
     else{
         tpuntero actual = *cabeza;
         while(actual->siguente != NULL){
-            actual = actual->siguente;
+            actual = actual->siguente;//busca hasta que el siguiente nodo sea null y se asigna el valor nuevo
         }
         actual->siguente = nuevo;
     }
 }
 
 char** devolverElementos(tpuntero cabeza, int NroDeElementosARetornal){
-    int longitud = tamanio(cabeza);
+    int longitud = tamanio(cabeza); //llama la funcion tamaño para no retornar valores nulos
     if(longitud < NroDeElementosARetornal){
         return NULL;
     }
@@ -53,7 +55,7 @@ char** devolverElementos(tpuntero cabeza, int NroDeElementosARetornal){
     tpuntero actual = cabeza;
     for(int i = 0; i<NroDeElementosARetornal;i++){
         strcpy(arreglo[i], actual->Texto);
-        actual = actual->siguente;
+        actual = actual->siguente;//se guardan los elementos de la lista en el puntero de punteros que creamos
     }
     return arreglo;
 }
@@ -62,7 +64,7 @@ int tamanio(tpuntero cabeza){
     tpuntero actual = cabeza;
     int longitud = 0;
     while(actual != NULL){
-        ++longitud;
+        ++longitud; //funcion espera a que actual sea NULL y va sumando uno a la longitud para ver el tamaño de la lista
         actual = actual->siguente;
         
     }
